@@ -1,0 +1,10 @@
+﻿- status
+- temp
+
+- wind
+- precipitation
+- air quality
+
+- 12 hour forecast
+
+- 7 day forecast

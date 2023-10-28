@@ -10,7 +10,7 @@ namespace WeatherApp.Tools
     {
         public static string SelectImage(int conditionCode)
         {
-            return ""; //TBA
+            return "";
         }
     }
 }

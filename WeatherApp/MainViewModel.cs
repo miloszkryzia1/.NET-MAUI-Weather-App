@@ -35,14 +35,7 @@ namespace WeatherApp
         }
 
         public ICommand UpdateWeatherCommand => new Command(async (searchTerm) =>
-        {
-            //FIXME - NEED HOURLY FORECAST STARTING TODAY
-            //get Today's data
-            var todayUrl = $"{baseUrl}/forecast.json?key={key}&q={(string)searchTerm}&dt={DateTime.Now.Month}-{DateTime.Now.Day}-{DateTime.Now.Year}";
-            var todayResponse = await client.GetAsync(todayUrl);
-            using var todayStream = await todayResponse.Content.ReadAsStreamAsync();
-            var todayData = await JsonSerializer.DeserializeAsync<ForecastData>(todayStream);
-            
+        {    
             //get week data
             var weekUrl = $"{baseUrl}/forecast.json?key={key}&q={(string)searchTerm}&days=7";
             var weekResponse = await client.GetAsync(weekUrl);
@@ -50,21 +43,21 @@ namespace WeatherApp
             var weekData = await JsonSerializer.DeserializeAsync<ForecastData>(weekStream);
             
             //assign parameters and lists
-            CurrentCity = todayData.location.name;
-            CurrentTemp = todayData.current.temp_c;
+            CurrentCity = weekData.location.name;
+            CurrentTemp = weekData.current.temp_c;
 
             //Today's hourly
-            var hourlyToday = todayData.forecast.forecastday[0].hour;
-            var hourlyTomorrow = weekData.forecast.forecastday[0].hour;
-            var time = todayData.location.localtime_epoch;
+            var hourlyToday = weekData.forecast.forecastday[0].hour;
+            var hourlyTomorrow = weekData.forecast.forecastday[1].hour;
+            var time = weekData.location.localtime_epoch;
             var utcTime = DateTimeOffset.FromUnixTimeSeconds(time).DateTime;
-            var timeZoneId = todayData.location.tz_id;
+            var timeZoneId = weekData.location.tz_id;
             var targetTimeZone = TimeZoneInfo.FindSystemTimeZoneById(timeZoneId);
             var hour = TimeZoneInfo.ConvertTimeFromUtc(utcTime, targetTimeZone).Hour;
 
             var currentArray = hourlyToday;
-            var i = 0;
-            for (int j = 0; i < 7; j++)
+            var i = hour + 1;
+            for (int j = 0; j < 12; j++)
             {
                 if (i > 23)
                 {

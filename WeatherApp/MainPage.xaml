@@ -6,12 +6,13 @@
           Margin="10">
         <Frame>
             <SearchBar Placeholder="Search"
-                       SearchCommand="{Binding UpdateWeatherCommand}"/>
+                       SearchCommand="{Binding UpdateWeatherCommand}"
+                       SearchCommandParameter="{Binding Source={RelativeSource Self}, Path=Text}"/>
         </Frame>
         <VerticalStackLayout HorizontalOptions="Center"
                              VerticalOptions="Start"
                              Grid.Row="1">
-            <Label Text="Paris"
+            <Label Text="{Binding CurrentCity}"
                    FontSize="50"
                    HorizontalTextAlignment="Center"/>
             <Image Source="sun.gif"
@@ -19,8 +20,6 @@
             <Label Text="{Binding CurrentTemp, StringFormat='{0}°C'}"
                    FontSize="50"
                    HorizontalTextAlignment="Center"/>
-            <Button Text="Test"
-                    Command="{Binding UpdateWeatherCommand}"/>
         </VerticalStackLayout>
         <CollectionView Grid.Row="2">
             

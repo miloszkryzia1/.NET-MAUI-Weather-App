@@ -49,6 +49,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\clouds.gif" />
+	  <None Remove="Resources\Images\cloudy.gif" />
 	  <None Remove="Resources\Images\drizzle.gif" />
 	  <None Remove="Resources\Images\foggy.gif" />
 	  <None Remove="Resources\Images\rain.gif" />

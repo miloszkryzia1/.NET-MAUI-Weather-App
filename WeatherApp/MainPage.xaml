@@ -2,34 +2,51 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WeatherApp.MainPage">
-    <Grid RowDefinitions="0.1*, 0.6*, 0.1*, 0.1*, 0.3*"
-          Margin="10">
-        <Frame>
-            <SearchBar Placeholder="Search"
-                       SearchCommand="{Binding UpdateWeatherCommand}"
-                       SearchCommandParameter="{Binding Source={RelativeSource Self}, Path=Text}"/>
-        </Frame>
-        <VerticalStackLayout HorizontalOptions="Center"
-                             VerticalOptions="Start"
-                             Grid.Row="1">
-            <Label Text="{Binding CurrentCity}"
-                   FontSize="50"
-                   HorizontalTextAlignment="Center"/>
-            <Image Source="sun.gif"
-                   HeightRequest="200"/>
-            <Label Text="{Binding CurrentTemp, StringFormat='{0}°C'}"
-                   FontSize="50"
-                   HorizontalTextAlignment="Center"/>
+    <ScrollView>
+        <VerticalStackLayout Margin="10"
+                             Spacing="10">
+            <Frame>
+                <SearchBar Placeholder="Search"
+                           SearchCommand="{Binding UpdateWeatherCommand}"
+                           SearchCommandParameter="{Binding Source={RelativeSource Self}, Path=Text}"/>
+            </Frame>
+            <VerticalStackLayout HorizontalOptions="Center"
+                                 VerticalOptions="Start">
+                <Label Text="{Binding CurrentCity}"
+                       FontSize="50"
+                       HorizontalTextAlignment="Center"/>
+                <Image Source="{Binding CurrentImage}"
+                       HeightRequest="200"/>
+                <Label Text="{Binding CurrentTemp, StringFormat='{0:F0}°C'}"
+                       FontSize="50"
+                       HorizontalTextAlignment="Center"/>
+            </VerticalStackLayout>
+            <CollectionView ItemsSource="{Binding Hourly}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal"
+                                       ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame MaximumHeightRequest="90">
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Image Source="{Binding ImageSource}"
+                                       HeightRequest ="30"
+                                       WidthRequest="30"/>
+                                <Label Text="{Binding Temperature, StringFormat='{0:F0}°C'}"
+                                       HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <HorizontalStackLayout>
+
+            </HorizontalStackLayout>
+            <CollectionView>
+
+            </CollectionView>
         </VerticalStackLayout>
-        <CollectionView Grid.Row="2">
-            
-        </CollectionView>
-        <HorizontalStackLayout Grid.Row="3">
-            
-        </HorizontalStackLayout>
-        <CollectionView Grid.Row="4">
-            
-        </CollectionView>
-    </Grid>
+    </ScrollView>
 
 </ContentPage>

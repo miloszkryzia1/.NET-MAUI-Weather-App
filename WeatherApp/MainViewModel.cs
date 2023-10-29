@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WeatherApp.Models;
+using WeatherApp.Tools;
 using static System.Net.WebRequestMethods;
 
 namespace WeatherApp
@@ -25,7 +26,6 @@ namespace WeatherApp
         HttpClient client;
         string baseUrl;
         string key;
-        List<WeatherCondition> conditions = new List<WeatherCondition>();
         public MainViewModel()
         {
             client = new HttpClient();
@@ -33,12 +33,11 @@ namespace WeatherApp
             key = "37685754eee8462993275728232410";
             Hourly = new ObservableCollection<HourlyData>();
             //Daily = new ObservableCollection<WeatherData>(); //Separate daily class needed
-            //extract conditions
-            GetConditionsAsync();
         }
 
         public ICommand UpdateWeatherCommand => new Command(async (searchTerm) =>
         {    
+            Hourly.Clear();
             //get week data
             var weekUrl = $"{baseUrl}/forecast.json?key={key}&q={(string)searchTerm}&days=7";
             var weekResponse = await client.GetAsync(weekUrl);
@@ -48,6 +47,7 @@ namespace WeatherApp
             //assign parameters and lists
             CurrentCity = weekData.location.name;
             CurrentTemp = weekData.current.temp_c;
+            CurrentImage = IconSelector.SelectImage(weekData.current.condition.code);
 
             //Today's hourly
             var hourlyToday = weekData.forecast.forecastday[0].hour;
@@ -71,13 +71,5 @@ namespace WeatherApp
                 i++;
             }
         });
-
-        private async void GetConditionsAsync()
-        {
-            var url = "https://www.weatherapi.com/docs/weather_conditions.json";
-            var response = await client.GetAsync(url);
-            using var stream = await response.Content.ReadAsStreamAsync();
-            conditions = await JsonSerializer.DeserializeAsync<List<WeatherCondition>>(stream);
-        }
     }
 }

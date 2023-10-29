@@ -1,6 +1,4 @@
-﻿using Android.Net.Sip;
-
-namespace WeatherApp
+﻿namespace WeatherApp
 {
     public partial class MainPage : ContentPage
     {
@@ -10,8 +8,10 @@ namespace WeatherApp
             BindingContext = new MainViewModel();
         }
 
+        //First search
         private void SearchBar_SearchButtonPressed(object sender, EventArgs e)
         {
+            welcomeScreen.IsVisible = false;
             var vm = BindingContext as MainViewModel;
             Binding binding = new Binding();
             binding.Source = vm;

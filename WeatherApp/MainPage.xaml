@@ -123,6 +123,25 @@
                            Color="#33cccc"
                            x:Name="indicator">
         </ActivityIndicator>
+
+        <VerticalStackLayout Grid.Row="1"
+                             VerticalOptions="Center"
+                             x:Name="welcomeScreen">
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Image Source="sun.gif"
+                       HeightRequest="60"
+                       WidthRequest="60"/>
+                <Image Source="clouds.gif"
+                       HeightRequest="60"
+                       WidthRequest="60"/>
+                <Image Source="storm.gif"
+                       HeightRequest="60"
+                       WidthRequest="60"/>
+            </HorizontalStackLayout>
+            <Label Text="Search for a place"
+                   HorizontalTextAlignment="Center"
+                   FontSize="Large"/>
+        </VerticalStackLayout>
     </Grid>
 
 </ContentPage>

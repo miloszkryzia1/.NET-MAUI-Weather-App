@@ -1,2 +1,4 @@
-﻿- Finish layout
-- Choosing appropriate image
+﻿- add other info : wind, precipitation
+- add daily forecast
+- add settings and converters
+- finish styles and add dark mode

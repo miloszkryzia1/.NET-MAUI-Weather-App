@@ -20,6 +20,8 @@ namespace WeatherApp
         public float CurrentTemp { get; set; }
         public string CurrentImage { get; set; }
         public string CurrentCity { get; set; }
+        public float CurrentWind { get; set; }
+        public float CurrentPrecipitation { get; set; }
         public ObservableCollection<HourlyData> Hourly {  get; set; }
         //public ObservableCollection<WeatherData> Daily { get; set; }
 
@@ -44,10 +46,12 @@ namespace WeatherApp
             using var weekStream = await weekResponse.Content.ReadAsStreamAsync();
             var weekData = await JsonSerializer.DeserializeAsync<ForecastData>(weekStream);
             
-            //assign parameters and lists
+            //assign properties
             CurrentCity = weekData.location.name;
             CurrentTemp = weekData.current.temp_c;
             CurrentImage = IconSelector.SelectImage(weekData.current.condition.code);
+            CurrentWind = weekData.current.wind_kph;
+            CurrentPrecipitation = weekData.current.precip_mm;
 
             //Today's hourly
             var hourlyToday = weekData.forecast.forecastday[0].hour;
@@ -67,7 +71,7 @@ namespace WeatherApp
                     i = 0;
                     currentArray = hourlyTomorrow;
                 }
-                Hourly.Add(new HourlyData(currentArray[i].temp_c, currentArray[i].condition.code));
+                Hourly.Add(new HourlyData(currentArray[i].temp_c, i, currentArray[i].condition.code));
                 i++;
             }
         });

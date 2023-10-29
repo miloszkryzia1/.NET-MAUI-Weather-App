@@ -3,4 +3,5 @@
 - add loading screen
 
 - add settings and converters
+- add nighttime icons
 - finish styles and add dark mode

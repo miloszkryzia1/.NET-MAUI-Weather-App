@@ -12,7 +12,8 @@
         <Frame>
             <SearchBar Placeholder="Search"
                            SearchCommand="{Binding UpdateWeatherCommand}"
-                           SearchCommandParameter="{Binding Source={RelativeSource Self}, Path=Text}"/>
+                           SearchCommandParameter="{Binding Source={RelativeSource Self}, Path=Text}"
+                       SearchButtonPressed="SearchBar_SearchButtonPressed"/>
         </Frame>
         <ScrollView IsVisible="{Binding DoneLoading}"
                     Grid.Row="1">
@@ -119,14 +120,8 @@
         <ActivityIndicator Grid.Row="1"
                            HeightRequest="100"
                            WidthRequest="100"
-                           Color="#33cccc">
-            <ActivityIndicator.Triggers>
-                <DataTrigger Binding="{Binding DoneLoading}"
-                             Value="False"
-                             TargetType="ActivityIndicator">
-                    <Setter Property="IsRunning" Value="True"/>
-                </DataTrigger>
-            </ActivityIndicator.Triggers>
+                           Color="#33cccc"
+                           x:Name="indicator">
         </ActivityIndicator>
     </Grid>
 

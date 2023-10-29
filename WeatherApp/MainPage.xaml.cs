@@ -1,4 +1,6 @@
-﻿namespace WeatherApp
+﻿using Android.Net.Sip;
+
+namespace WeatherApp
 {
     public partial class MainPage : ContentPage
     {
@@ -6,6 +8,23 @@
         {
             InitializeComponent();
             BindingContext = new MainViewModel();
+        }
+
+        private void SearchBar_SearchButtonPressed(object sender, EventArgs e)
+        {
+            var vm = BindingContext as MainViewModel;
+            Binding binding = new Binding();
+            binding.Source = vm;
+            binding.Path = "DoneLoading";
+            DataTrigger trigger = new DataTrigger(typeof(ActivityIndicator));
+            trigger.Binding = binding;
+            trigger.Value = false;
+            Setter setter = new Setter();
+            setter.Property = ActivityIndicator.IsRunningProperty;
+            setter.Value = true;
+            trigger.Setters.Add(setter);
+            indicator.Triggers.Add(trigger);
+            ((SearchBar)sender).SearchButtonPressed -= SearchBar_SearchButtonPressed;
         }
     }
 }

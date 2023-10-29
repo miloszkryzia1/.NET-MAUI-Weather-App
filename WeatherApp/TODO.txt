@@ -1,4 +1,6 @@
 ﻿- add other info : wind, precipitation
 - add daily forecast
+- add loading screen
+
 - add settings and converters
 - finish styles and add dark mode

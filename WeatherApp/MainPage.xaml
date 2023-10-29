@@ -6,90 +6,128 @@
     <ContentPage.Resources>
         <Tools:TimeFormatConverter x:Key="TimeFormatConverter"/>
     </ContentPage.Resources>
-    
-    <ScrollView>
-        <VerticalStackLayout Margin="10"
-                             Spacing="10">
-            <Frame>
-                <SearchBar Placeholder="Search"
+
+    <Grid RowDefinitions="0.1*, 0.9*"
+          Margin="10">
+        <Frame>
+            <SearchBar Placeholder="Search"
                            SearchCommand="{Binding UpdateWeatherCommand}"
                            SearchCommandParameter="{Binding Source={RelativeSource Self}, Path=Text}"/>
-            </Frame>
-            <VerticalStackLayout HorizontalOptions="Center"
+        </Frame>
+        <ScrollView IsVisible="{Binding DoneLoading}"
+                    Grid.Row="1">
+            <VerticalStackLayout Margin="10"
+                             Spacing="10">
+                <VerticalStackLayout HorizontalOptions="Center"
                                  VerticalOptions="Start">
-                <Label Text="{Binding CurrentCity}"
+                    <Label Text="{Binding CurrentCity}"
                        FontSize="50"
                        HorizontalTextAlignment="Center"/>
-                <Image Source="{Binding CurrentImage}"
+                    <Image Source="{Binding CurrentImage}"
                        HeightRequest="200"
                        IsAnimationPlaying="False"/>
-                <Label Text="{Binding CurrentTemp, StringFormat='{0:F0}°C'}"
+                    <Label Text="{Binding CurrentTemp, StringFormat='{0:F0}°C'}"
                        FontSize="50"
                        HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+                <CollectionView ItemsSource="{Binding Hourly}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal"
+                                           ItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame MaximumHeightRequest="120">
+                                <VerticalStackLayout VerticalOptions="Center"
+                                                     Spacing="3">
+                                    <Label Text="{Binding Hour, Converter={StaticResource TimeFormatConverter}}"
+                                           HorizontalTextAlignment="Center"/>
+                                    <Image Source="{Binding ImageSource}"
+                                           HeightRequest ="30"
+                                           WidthRequest="30"
+                                           IsAnimationPlaying="False"/>
+                                    <Label Text="{Binding Temperature, StringFormat='{0:F0}°C'}"
+                                           HorizontalTextAlignment="Center"/>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Grid ColumnDefinitions="0.5*, 0.5*"
+                      ColumnSpacing="5">
+                    <Frame MinimumWidthRequest="140"
+                           MinimumHeightRequest="80">
+                        <Grid RowDefinitions="0.5*, 0.5*"
+                              ColumnDefinitions="0.3*, 0.7*"
+                              ColumnSpacing="5">
+                            <Image Source="wind.gif"
+                                   HeightRequest="30"
+                                   WidthRequest="30"
+                                   IsAnimationPlaying="False"
+                                   Grid.RowSpan="2"/>
+                            <Label Grid.Column="1"
+                                   Text="Wind"/>
+                            <Label Grid.Row="1"
+                                   Grid.Column="1"
+                                   Text="{Binding CurrentWind, StringFormat='{0} km/h'}"/>
+                        </Grid>
+                    </Frame>
+                    <Frame Grid.Column="1">
+                        <Grid RowDefinitions="0.5*, 0.5*"
+                              ColumnDefinitions="0.3*, 0.7*"
+                              ColumnSpacing="5">
+                            <Image Source="drop.png"
+                                   HeightRequest="30"
+                                   WidthRequest="30"
+                                   IsAnimationPlaying="False"
+                                   Grid.RowSpan="2"/>
+                            <Label Grid.Column="1"
+                                   Text="Precipitation"/>
+                            <Label Grid.Row="1"
+                                   Grid.Column="1"
+                                   Text="{Binding CurrentPrecipitation, StringFormat='{0} mm'}"/>
+                        </Grid>
+                    </Frame>
+                </Grid>
+                <CollectionView ItemsSource="{Binding Daily}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                           ItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame>
+                                <HorizontalStackLayout VerticalOptions="Center"
+                                                       Spacing="20">
+                                    <Label Text="{Binding Date}"
+                                           VerticalTextAlignment="Center"/>
+                                    <Image Source="{Binding ImageSource}"
+                                           HeightRequest="60"
+                                           WidthRequest="60"/>
+                                    <Label Text="{Binding MinTemp, StringFormat='{0:F0}°C'}"
+                                           VerticalTextAlignment="Center"/>
+                                    <Label Text="{Binding MaxTemp, StringFormat='{0:F0}°C'}"
+                                           VerticalTextAlignment="Center"/>
+                                </HorizontalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </VerticalStackLayout>
-            <CollectionView ItemsSource="{Binding Hourly}">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Horizontal"
-                                       ItemSpacing="10"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame MaximumHeightRequest="120">
-                            <VerticalStackLayout VerticalOptions="Center"
-                                                 Spacing="3">
-                                <Label Text="{Binding Hour, Converter={StaticResource TimeFormatConverter}}"
-                                       HorizontalTextAlignment="Center"/>
-                                <Image Source="{Binding ImageSource}"
-                                       HeightRequest ="30"
-                                       WidthRequest="30"
-                                       IsAnimationPlaying="False"/>
-                                <Label Text="{Binding Temperature, StringFormat='{0:F0}°C'}"
-                                       HorizontalTextAlignment="Center"/>
-                            </VerticalStackLayout>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <Grid ColumnDefinitions="0.5*, 0.5*"
-                  ColumnSpacing="5">
-                <Frame MinimumWidthRequest="140"
-                       MinimumHeightRequest="80">
-                    <Grid RowDefinitions="0.5*, 0.5*"
-                          ColumnDefinitions="0.3*, 0.7*"
-                          ColumnSpacing="5">
-                        <Image Source="wind.gif"
-                               HeightRequest="30"
-                               WidthRequest="30"
-                               IsAnimationPlaying="False"
-                               Grid.RowSpan="2"/>
-                        <Label Grid.Column="1"
-                               Text="Wind"/>
-                        <Label Grid.Row="1"
-                               Grid.Column="1"
-                               Text="{Binding CurrentWind, StringFormat='{0} km/h'}"/>
-                    </Grid>
-                </Frame>
-                <Frame Grid.Column="1">
-                    <Grid RowDefinitions="0.5*, 0.5*"
-                          ColumnDefinitions="0.3*, 0.7*"
-                          ColumnSpacing="5">
-                        <Image Source="drop.png"
-                               HeightRequest="30"
-                               WidthRequest="30"
-                               IsAnimationPlaying="False"
-                               Grid.RowSpan="2"/>
-                        <Label Grid.Column="1"
-                               Text="Precipitation"/>
-                        <Label Grid.Row="1"
-                               Grid.Column="1"
-                               Text="{Binding CurrentPrecipitation, StringFormat='{0} mm'}"/>
-                    </Grid>
-                </Frame>
-            </Grid>
-            <CollectionView>
+        </ScrollView>
 
-            </CollectionView>
-        </VerticalStackLayout>
-    </ScrollView>
+        <ActivityIndicator Grid.Row="1"
+                           HeightRequest="100"
+                           WidthRequest="100"
+                           Color="#33cccc">
+            <ActivityIndicator.Triggers>
+                <DataTrigger Binding="{Binding DoneLoading}"
+                             Value="False"
+                             TargetType="ActivityIndicator">
+                    <Setter Property="IsRunning" Value="True"/>
+                </DataTrigger>
+            </ActivityIndicator.Triggers>
+        </ActivityIndicator>
+    </Grid>
 
 </ContentPage>

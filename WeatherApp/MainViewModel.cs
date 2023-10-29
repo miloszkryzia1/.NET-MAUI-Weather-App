@@ -23,7 +23,8 @@ namespace WeatherApp
         public float CurrentWind { get; set; }
         public float CurrentPrecipitation { get; set; }
         public ObservableCollection<HourlyData> Hourly {  get; set; }
-        //public ObservableCollection<WeatherData> Daily { get; set; }
+        public ObservableCollection<DailyData> Daily { get; set; }
+        public bool DoneLoading { get; set; }
 
         HttpClient client;
         string baseUrl;
@@ -34,12 +35,15 @@ namespace WeatherApp
             baseUrl = "https://api.weatherapi.com/v1";
             key = "37685754eee8462993275728232410";
             Hourly = new ObservableCollection<HourlyData>();
-            //Daily = new ObservableCollection<WeatherData>(); //Separate daily class needed
+            Daily = new ObservableCollection<DailyData>();
         }
 
         public ICommand UpdateWeatherCommand => new Command(async (searchTerm) =>
-        {    
+        {
+            DoneLoading = false;
             Hourly.Clear();
+            Daily.Clear();
+
             //get week data
             var weekUrl = $"{baseUrl}/forecast.json?key={key}&q={(string)searchTerm}&days=7";
             var weekResponse = await client.GetAsync(weekUrl);
@@ -74,6 +78,16 @@ namespace WeatherApp
                 Hourly.Add(new HourlyData(currentArray[i].temp_c, i, currentArray[i].condition.code));
                 i++;
             }
+
+            //Next 6 days
+            for (int j = 1; j < 7; j++)
+            {
+                var date = weekData.forecast.forecastday[j].date;
+                var day = weekData.forecast.forecastday[j].day;
+                Daily.Add(new DailyData(day.mintemp_c, day.maxtemp_c, date, day.condition.code));
+            }
+
+            DoneLoading = true;
         });
     }
 }

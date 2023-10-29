@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:Tools="clr-namespace:WeatherApp.Tools">
+    
+    <Tools:TimeFormatConverter x:Key="TimeFormatConverter"/>
+
+    <DataTemplate x:Key="celsiusTemplate">
+        <Frame MaximumHeightRequest="120">
+            <VerticalStackLayout VerticalOptions="Center"
+                             Spacing="3">
+                <Label Text="{Binding Hour, Converter={StaticResource TimeFormatConverter}}"
+                   HorizontalTextAlignment="Center"/>
+                <Image Source="{Binding ImageSource}"
+                   HeightRequest ="30"
+                   WidthRequest="30"
+                   IsAnimationPlaying="False"/>
+                <Label Text="{Binding TemperatureC, StringFormat='{0:F0}°C'}"
+                   HorizontalTextAlignment="Center"/>
+            </VerticalStackLayout>
+        </Frame>
+    </DataTemplate>
+
+    <DataTemplate x:Key="fahrenheitTemplate">
+        <Frame MaximumHeightRequest="120">
+            <VerticalStackLayout VerticalOptions="Center"
+                         Spacing="3">
+                <Label Text="{Binding Hour, Converter={StaticResource TimeFormatConverter}}"
+               HorizontalTextAlignment="Center"/>
+                <Image Source="{Binding ImageSource}"
+               HeightRequest ="30"
+               WidthRequest="30"
+               IsAnimationPlaying="False"/>
+                <Label Text="{Binding TemperatureF, StringFormat='{0:F0}°F'}"
+               HorizontalTextAlignment="Center"/>
+            </VerticalStackLayout>
+        </Frame>
+    </DataTemplate>
+
+    <DataTemplate x:Key="celsiusDayTemplate">
+        <Frame>
+            <HorizontalStackLayout VerticalOptions="Center"
+                               Spacing="20">
+                <Label Text="{Binding Date}"
+                   VerticalTextAlignment="Center"/>
+                <Image Source="{Binding ImageSource}"
+                   HeightRequest="60"
+                   WidthRequest="60"/>
+                <Label Text="{Binding MinTempC, StringFormat='{0:F0}°C'}"
+                   VerticalTextAlignment="Center"/>
+                <Label Text="{Binding MaxTempC, StringFormat='{0:F0}°C'}"
+                   VerticalTextAlignment="Center"/>
+            </HorizontalStackLayout>
+        </Frame>
+    </DataTemplate>
+
+    <DataTemplate x:Key="fahrenheitDayTemplate">
+        <Frame>
+            <HorizontalStackLayout VerticalOptions="Center"
+                               Spacing="20">
+                <Label Text="{Binding Date}"
+                   VerticalTextAlignment="Center"/>
+                <Image Source="{Binding ImageSource}"
+                   HeightRequest="60"
+                   WidthRequest="60"/>
+                <Label Text="{Binding MinTempF, StringFormat='{0:F0}°F'}"
+                   VerticalTextAlignment="Center"/>
+                <Label Text="{Binding MaxTempF, StringFormat='{0:F0}°F'}"
+                   VerticalTextAlignment="Center"/>
+            </HorizontalStackLayout>
+        </Frame>
+    </DataTemplate>
+
+</ResourceDictionary>

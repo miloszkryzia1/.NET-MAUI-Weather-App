@@ -9,13 +9,15 @@ namespace WeatherApp.Models
 {
     public class HourlyData
     {
-        public float Temperature { get; set; }
+        public float TemperatureC { get; set; }
+        public float TemperatureF { get; set; }
         public string ImageSource { get; set; }
         public int Hour {  get; set; }
 
-        public HourlyData(float temp, int hour, int conditionCode) 
+        public HourlyData(float tempC, float tempF, int hour, int conditionCode) 
         {
-            Temperature = temp;
+            TemperatureC = tempC;
+            TemperatureF = tempF;
             Hour = hour;
             ImageSource = IconSelector.SelectImage(conditionCode);
         }

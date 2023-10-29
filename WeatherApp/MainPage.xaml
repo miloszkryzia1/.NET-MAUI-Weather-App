@@ -8,6 +8,7 @@
     </ContentPage.Resources>
 
     <Grid RowDefinitions="0.1*, 0.9*"
+          ColumnDefinitions="0.9*, 0.1*"
           Margin="10">
         <Frame>
             <SearchBar Placeholder="Search"
@@ -15,8 +16,13 @@
                            SearchCommandParameter="{Binding Source={RelativeSource Self}, Path=Text}"
                        SearchButtonPressed="SearchBar_SearchButtonPressed"/>
         </Frame>
+        <ImageButton Source="settings.png"
+                     Grid.Column="1"
+                     Margin="5"
+                     Clicked="ImageButton_Clicked"/>
         <ScrollView IsVisible="{Binding DoneLoading}"
-                    Grid.Row="1">
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2">
             <VerticalStackLayout Margin="10"
                              Spacing="10">
                 <VerticalStackLayout HorizontalOptions="Center"
@@ -27,11 +33,13 @@
                     <Image Source="{Binding CurrentImage}"
                        HeightRequest="200"
                        IsAnimationPlaying="False"/>
-                    <Label Text="{Binding CurrentTemp, StringFormat='{0:F0}°C'}"
+                    <Label Text="{Binding CurrentTempC, StringFormat='{0:F0}°C'}"
                        FontSize="50"
-                       HorizontalTextAlignment="Center"/>
+                       HorizontalTextAlignment="Center"
+                       x:Name="currentTempLabel"/>
                 </VerticalStackLayout>
-                <CollectionView ItemsSource="{Binding Hourly}">
+                <CollectionView ItemsSource="{Binding Hourly}"
+                                x:Name="hourlyCollection">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Horizontal"
                                            ItemSpacing="10"/>
@@ -47,7 +55,7 @@
                                            HeightRequest ="30"
                                            WidthRequest="30"
                                            IsAnimationPlaying="False"/>
-                                    <Label Text="{Binding Temperature, StringFormat='{0:F0}°C'}"
+                                    <Label Text="{Binding TemperatureC, StringFormat='{0:F0}°C'}"
                                            HorizontalTextAlignment="Center"/>
                                 </VerticalStackLayout>
                             </Frame>
@@ -90,7 +98,8 @@
                         </Grid>
                     </Frame>
                 </Grid>
-                <CollectionView ItemsSource="{Binding Daily}">
+                <CollectionView ItemsSource="{Binding Daily}"
+                                x:Name="dailyCollection">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical"
                                            ItemSpacing="10"/>
@@ -105,9 +114,9 @@
                                     <Image Source="{Binding ImageSource}"
                                            HeightRequest="60"
                                            WidthRequest="60"/>
-                                    <Label Text="{Binding MinTemp, StringFormat='{0:F0}°C'}"
+                                    <Label Text="{Binding MinTempC, StringFormat='{0:F0}°C'}"
                                            VerticalTextAlignment="Center"/>
-                                    <Label Text="{Binding MaxTemp, StringFormat='{0:F0}°C'}"
+                                    <Label Text="{Binding MaxTempC, StringFormat='{0:F0}°C'}"
                                            VerticalTextAlignment="Center"/>
                                 </HorizontalStackLayout>
                             </Frame>
@@ -118,6 +127,7 @@
         </ScrollView>
 
         <ActivityIndicator Grid.Row="1"
+                           Grid.ColumnSpan="2"
                            HeightRequest="100"
                            WidthRequest="100"
                            Color="#33cccc"
@@ -125,6 +135,7 @@
         </ActivityIndicator>
 
         <VerticalStackLayout Grid.Row="1"
+                             Grid.ColumnSpan="2"
                              VerticalOptions="Center"
                              x:Name="welcomeScreen">
             <HorizontalStackLayout HorizontalOptions="Center">

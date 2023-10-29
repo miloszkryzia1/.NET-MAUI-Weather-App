@@ -9,14 +9,18 @@ namespace WeatherApp.Models
 {
     public class DailyData
     {
-        public float MinTemp {  get; set; }
-        public float MaxTemp { get; set; }
+        public float MinTempC {  get; set; }
+        public float MaxTempC { get; set; }
+        public float MinTempF { get; set; }
+        public float MaxTempF { get; set; }
         public string ImageSource { get; set; }
         public string Date { get; set; }
-        public DailyData(float minTemp, float maxTemp, string date, int conditionCode) 
+        public DailyData(float minTempC, float maxTempC, float minTempF, float maxTempF, string date, int conditionCode) 
         {
-            MinTemp = minTemp; 
-            MaxTemp = maxTemp;
+            MinTempC = minTempC; 
+            MaxTempC = maxTempC;
+            MinTempF = minTempF;
+            MaxTempF = maxTempF;
             Date = DateTime.ParseExact(date, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture).ToString("ddd d");
             ImageSource = IconSelector.SelectImage(conditionCode);
         }

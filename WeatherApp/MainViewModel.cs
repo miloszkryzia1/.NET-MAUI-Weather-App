@@ -17,7 +17,8 @@ namespace WeatherApp
     public class MainViewModel
     {
         public string CurrentStatus {  get; set; }
-        public float CurrentTemp { get; set; }
+        public float CurrentTempC { get; set; }
+        public float CurrentTempF { get; set; }
         public string CurrentImage { get; set; }
         public string CurrentCity { get; set; }
         public float CurrentWind { get; set; }
@@ -52,7 +53,8 @@ namespace WeatherApp
             
             //assign properties
             CurrentCity = weekData.location.name;
-            CurrentTemp = weekData.current.temp_c;
+            CurrentTempC = weekData.current.temp_c;
+            CurrentTempF = weekData.current.temp_f;
             CurrentImage = IconSelector.SelectImage(weekData.current.condition.code);
             CurrentWind = weekData.current.wind_kph;
             CurrentPrecipitation = weekData.current.precip_mm;
@@ -75,7 +77,7 @@ namespace WeatherApp
                     i = 0;
                     currentArray = hourlyTomorrow;
                 }
-                Hourly.Add(new HourlyData(currentArray[i].temp_c, i, currentArray[i].condition.code));
+                Hourly.Add(new HourlyData(currentArray[i].temp_c, currentArray[i].temp_f, i, currentArray[i].condition.code));
                 i++;
             }
 
@@ -84,7 +86,7 @@ namespace WeatherApp
             {
                 var date = weekData.forecast.forecastday[j].date;
                 var day = weekData.forecast.forecastday[j].day;
-                Daily.Add(new DailyData(day.mintemp_c, day.maxtemp_c, date, day.condition.code));
+                Daily.Add(new DailyData(day.mintemp_c, day.maxtemp_c, day.mintemp_f, day.maxtemp_f, date, day.condition.code));
             }
 
             DoneLoading = true;

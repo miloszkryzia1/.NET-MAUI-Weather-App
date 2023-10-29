@@ -26,5 +26,10 @@
             indicator.Triggers.Add(trigger);
             ((SearchBar)sender).SearchButtonPressed -= SearchBar_SearchButtonPressed;
         }
+
+        private void ImageButton_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new SettingsPage(this));
+        }
     }
 }

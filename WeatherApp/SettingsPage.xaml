@@ -2,20 +2,25 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WeatherApp.SettingsPage"
-             Title="SettingsPage"
+             Title="Settings"
              xmlns:local="clr-namespace:WeatherApp">
 
     <VerticalStackLayout>
-        <Label Text="Settings"
+        <Label Text="Temperature Units"
                FontSize="Title"
                FontAttributes="Bold"/>
-        <Picker SelectedIndexChanged="Picker_SelectedIndexChanged">
-            <Picker.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>°C</x:String>
-                    <x:String>°F</x:String>
-                </x:Array>
-            </Picker.ItemsSource>
-        </Picker>
+        <Grid RowDefinitions="0.5*, 0.5*"
+              ColumnDefinitions="0.1*, 0.9*">
+            <RadioButton GroupName="tempButtonGroup"
+                         IsChecked="True"
+                         CheckedChanged="RadioButton_CheckedChanged"/>
+            <Label Grid.Column="1"
+                   Text="C"/>
+            <RadioButton Grid.Row="1"
+                         GroupName="tempButtonGroup"/>
+            <Label Grid.Column="1"
+                   Grid.Row="1"
+                   Text="F"/>
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>

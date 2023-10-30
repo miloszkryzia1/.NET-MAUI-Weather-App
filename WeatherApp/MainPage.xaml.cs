@@ -2,10 +2,12 @@
 {
     public partial class MainPage : ContentPage
     {
+        SettingsPage settings;
         public MainPage()
         {
             InitializeComponent();
             BindingContext = new MainViewModel();
+            settings = new SettingsPage(this);
         }
 
         //First search
@@ -29,7 +31,7 @@
 
         private void ImageButton_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new SettingsPage(this));
+            Navigation.PushAsync(settings);
         }
     }
 }

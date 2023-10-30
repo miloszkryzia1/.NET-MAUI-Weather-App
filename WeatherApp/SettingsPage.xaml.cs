@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace WeatherApp;
 
 public partial class SettingsPage : ContentPage
@@ -9,16 +11,15 @@ public partial class SettingsPage : ContentPage
 		InitializeComponent();
 	}
 
-    private void Picker_SelectedIndexChanged(object sender, EventArgs e)
+    private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-		var picker = (Picker)sender;
         var hourly = (CollectionView)mainPage.FindByName("hourlyCollection");
         var daily = (CollectionView)mainPage.FindByName("dailyCollection");
         var currentTempLabel = (Label)mainPage.FindByName("currentTempLabel");
-        if ((string)picker.SelectedItem == "°C") 
-		{
-			Application.Current.Resources.TryGetValue("celsiusTemplate", out var hourTemplate);
-			hourly.ItemTemplate = (DataTemplate)hourTemplate;
+        if (e.Value)
+        {
+            Application.Current.Resources.TryGetValue("celsiusTemplate", out var hourTemplate);
+            hourly.ItemTemplate = (DataTemplate)hourTemplate;
             Application.Current.Resources.TryGetValue("celsiusDayTemplate", out var dayTemplate);
             daily.ItemTemplate = (DataTemplate)dayTemplate;
             currentTempLabel.SetBinding(Label.TextProperty, new Binding()
@@ -27,8 +28,8 @@ public partial class SettingsPage : ContentPage
                 Path = "CurrentTempC",
                 StringFormat = "{0:F0}°C"
             });
-		}
-        else if ((string)picker.SelectedItem == "°F")
+        }
+        else
         {
             Application.Current.Resources.TryGetValue("fahrenheitTemplate", out var hourTemplate);
             hourly.ItemTemplate = (DataTemplate)hourTemplate;

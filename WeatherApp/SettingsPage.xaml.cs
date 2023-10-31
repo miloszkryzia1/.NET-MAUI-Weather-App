@@ -13,6 +13,7 @@ public partial class SettingsPage : ContentPage
 
     private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
+        Stopwatch sw = Stopwatch.StartNew();
         var hourly = (CollectionView)mainPage.FindByName("hourlyCollection");
         var daily = (CollectionView)mainPage.FindByName("dailyCollection");
         var currentTempLabel = (Label)mainPage.FindByName("currentTempLabel");
@@ -42,5 +43,7 @@ public partial class SettingsPage : ContentPage
                 StringFormat = "{0:F0}°F"
             });
         }
+        sw.Stop();
+        Debug.WriteLine(sw.ElapsedMilliseconds + " ms");
     }
 }

@@ -7,7 +7,7 @@
 
     <VerticalStackLayout Margin="10"
                          Spacing="10">
-        <Label Text="Temperature Units"
+        <Label Text="Units"
                FontSize="Title"
                FontAttributes="Bold"/>
         <Grid RowDefinitions="0.5*, 0.5*"
@@ -16,12 +16,12 @@
                          IsChecked="True"
                          CheckedChanged="RadioButton_CheckedChanged"/>
             <Label Grid.Column="1"
-                   Text="C"/>
+                   Text="Metric"/>
             <RadioButton Grid.Row="1"
                          GroupName="tempButtonGroup"/>
             <Label Grid.Column="1"
                    Grid.Row="1"
-                   Text="F"/>
+                   Text="Imperial"/>
         </Grid>
     </VerticalStackLayout>
 </ContentPage>

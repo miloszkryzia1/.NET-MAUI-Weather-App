@@ -19,6 +19,7 @@ namespace WeatherApp
         public string CurrentStatus {  get; set; }
         public float CurrentTempC { get; set; }
         public float CurrentTempF { get; set; }
+        public string CurrentDisplayedTemp {  get; set; }
         public string CurrentImage { get; set; }
         public string CurrentCity { get; set; }
         public float CurrentWind { get; set; }
@@ -26,6 +27,7 @@ namespace WeatherApp
         public ObservableCollection<HourlyData> Hourly {  get; set; }
         public ObservableCollection<DailyData> Daily { get; set; }
         public bool DoneLoading { get; set; }
+        public string Units { get; set; }
 
         HttpClient client;
         string baseUrl;
@@ -37,6 +39,7 @@ namespace WeatherApp
             key = "37685754eee8462993275728232410";
             Hourly = new ObservableCollection<HourlyData>();
             Daily = new ObservableCollection<DailyData>();
+            Units = "metric";
         }
 
         public ICommand UpdateWeatherCommand => new Command(async (searchTerm) =>
@@ -59,6 +62,15 @@ namespace WeatherApp
             CurrentWind = weekData.current.wind_kph;
             CurrentPrecipitation = weekData.current.precip_mm;
 
+            if (Units == "metric")
+            {
+                CurrentDisplayedTemp = string.Format("{0:F0}°C", CurrentTempC);
+            }
+            else
+            {
+                CurrentDisplayedTemp = string.Format("{0:F0}°F", CurrentTempF);
+            }
+
             //Today's hourly
             var hourlyToday = weekData.forecast.forecastday[0].hour;
             var hourlyTomorrow = weekData.forecast.forecastday[1].hour;
@@ -77,7 +89,7 @@ namespace WeatherApp
                     i = 0;
                     currentArray = hourlyTomorrow;
                 }
-                Hourly.Add(new HourlyData(currentArray[i].temp_c, currentArray[i].temp_f, i, currentArray[i].condition.code));
+                Hourly.Add(new HourlyData(currentArray[i].temp_c, currentArray[i].temp_f, i, currentArray[i].condition.code, Units));
                 i++;
             }
 
@@ -86,7 +98,7 @@ namespace WeatherApp
             {
                 var date = weekData.forecast.forecastday[j].date;
                 var day = weekData.forecast.forecastday[j].day;
-                Daily.Add(new DailyData(day.mintemp_c, day.maxtemp_c, day.mintemp_f, day.maxtemp_f, date, day.condition.code));
+                Daily.Add(new DailyData(day.mintemp_c, day.maxtemp_c, day.mintemp_f, day.maxtemp_f, date, day.condition.code, Units));
             }
 
             DoneLoading = true;

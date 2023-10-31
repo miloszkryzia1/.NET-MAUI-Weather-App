@@ -1,7 +1,3 @@
-﻿- add other info : wind, precipitation
-- add daily forecast
-- add loading screen
-
-- add settings and converters
+﻿- add settings and converters
 - add nighttime icons
-- finish styles and add dark mode
+- finish styles

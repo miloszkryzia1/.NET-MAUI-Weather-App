@@ -13,10 +13,11 @@ public partial class SettingsPage : ContentPage
 	}
     private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-        Stopwatch sw = Stopwatch.StartNew();
         if (e.Value)
         {
             mainVm.CurrentDisplayedTemp = string.Format("{0:F0}°C", mainVm.CurrentTempC);
+            mainVm.CurrentDisplayedWind = string.Format("{0:F1} km/h", mainVm.CurrentWindKph);
+            mainVm.CurrentDisplayedPrec = string.Format("{0} mm", mainVm.CurrentPrecipitationMm);
             mainVm.Units = "metric";
             foreach (var hour in mainVm.Hourly)
             {
@@ -31,6 +32,8 @@ public partial class SettingsPage : ContentPage
         else
         {
             mainVm.CurrentDisplayedTemp = string.Format("{0:F0}°F", mainVm.CurrentTempF);
+            mainVm.CurrentDisplayedWind = string.Format("{0:F1} mph", mainVm.CurrentWindMph);
+            mainVm.CurrentDisplayedPrec = string.Format("{0:F2} in", mainVm.CurrentPrecipitationIn);
             mainVm.Units = "imperial";
             foreach (var hour in mainVm.Hourly)
             {
@@ -42,7 +45,5 @@ public partial class SettingsPage : ContentPage
                 day.DisplayedMaxTemp = string.Format("{0:F0}°F", day.MaxTempF);
             }
         }
-        sw.Stop();
-        Debug.WriteLine(sw.ElapsedMilliseconds + " ms");
     }
 }

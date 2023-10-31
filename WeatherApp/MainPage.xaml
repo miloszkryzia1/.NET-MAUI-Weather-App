@@ -79,7 +79,7 @@
                                    Text="Wind"/>
                             <Label Grid.Row="1"
                                    Grid.Column="1"
-                                   Text="{Binding CurrentWind, StringFormat='{0} km/h'}"/>
+                                   Text="{Binding CurrentDisplayedWind}"/>
                         </Grid>
                     </Frame>
                     <Frame Grid.Column="1">
@@ -95,7 +95,7 @@
                                    Text="Precipitation"/>
                             <Label Grid.Row="1"
                                    Grid.Column="1"
-                                   Text="{Binding CurrentPrecipitation, StringFormat='{0} mm'}"/>
+                                   Text="{Binding CurrentDisplayedPrec}"/>
                         </Grid>
                     </Frame>
                 </Grid>

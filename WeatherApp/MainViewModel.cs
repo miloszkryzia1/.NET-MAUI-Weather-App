@@ -22,8 +22,12 @@ namespace WeatherApp
         public string CurrentDisplayedTemp {  get; set; }
         public string CurrentImage { get; set; }
         public string CurrentCity { get; set; }
-        public float CurrentWind { get; set; }
-        public float CurrentPrecipitation { get; set; }
+        public float CurrentWindKph { get; set; }
+        public float CurrentWindMph { get; set; }
+        public string CurrentDisplayedWind { get; set; }
+        public float CurrentPrecipitationMm { get; set; }
+        public float CurrentPrecipitationIn { get; set; }
+        public string CurrentDisplayedPrec {  get; set; }
         public ObservableCollection<HourlyData> Hourly {  get; set; }
         public ObservableCollection<DailyData> Daily { get; set; }
         public bool DoneLoading { get; set; }
@@ -59,16 +63,22 @@ namespace WeatherApp
             CurrentTempC = weekData.current.temp_c;
             CurrentTempF = weekData.current.temp_f;
             CurrentImage = IconSelector.SelectImage(weekData.current.condition.code);
-            CurrentWind = weekData.current.wind_kph;
-            CurrentPrecipitation = weekData.current.precip_mm;
+            CurrentWindKph = weekData.current.wind_kph;
+            CurrentWindMph = weekData.current.wind_mph;
+            CurrentPrecipitationMm = weekData.current.precip_mm;
+            CurrentPrecipitationIn = weekData.current.precip_in;
 
             if (Units == "metric")
             {
                 CurrentDisplayedTemp = string.Format("{0:F0}°C", CurrentTempC);
+                CurrentDisplayedWind = string.Format("{0:F1} km/h", CurrentWindKph);
+                CurrentDisplayedPrec = string.Format("{0} mm", CurrentPrecipitationMm);
             }
             else
             {
                 CurrentDisplayedTemp = string.Format("{0:F0}°F", CurrentTempF);
+                CurrentDisplayedWind = string.Format("{0:F1} mph", CurrentWindMph);
+                CurrentDisplayedPrec = string.Format("{0:F2} in", CurrentPrecipitationIn);
             }
 
             //Today's hourly

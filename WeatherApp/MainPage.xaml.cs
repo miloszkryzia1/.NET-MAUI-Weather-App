@@ -7,7 +7,7 @@
         {
             InitializeComponent();
             BindingContext = new MainViewModel();
-            settings = new SettingsPage(this);
+            settings = new SettingsPage(BindingContext as MainViewModel);
         }
 
         //First search

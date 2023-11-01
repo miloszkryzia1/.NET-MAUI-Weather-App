@@ -48,6 +48,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\Ubuntu-Light.ttf" />
 	  <None Remove="Resources\Images\clouds.gif" />
 	  <None Remove="Resources\Images\clouds.png" />
 	  <None Remove="Resources\Images\cloudy.gif" />

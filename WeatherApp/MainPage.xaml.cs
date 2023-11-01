@@ -3,11 +3,13 @@
     public partial class MainPage : ContentPage
     {
         SettingsPage settings;
+        public MainViewModel ViewModel { get; set; }
         public MainPage()
         {
             InitializeComponent();
             BindingContext = new MainViewModel();
             settings = new SettingsPage(BindingContext as MainViewModel);
+            ViewModel = BindingContext as MainViewModel;
         }
 
         //First search

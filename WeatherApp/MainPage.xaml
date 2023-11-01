@@ -3,9 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WeatherApp.MainPage"
              xmlns:Tools="clr-namespace:WeatherApp.Tools"
-             Title="Weather">
+             Title="Weather"
+             BackgroundColor="{Binding PrimaryColor}">
     <ContentPage.Resources>
         <Tools:TimeFormatConverter x:Key="TimeFormatConverter"/>
+        <Style TargetType="Frame">
+            <Setter Property="BorderColor" Value="Transparent"/>
+            <Setter Property="BackgroundColor" Value="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=ViewModel.SecondaryColor}"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=ViewModel.TextColor}"/>
+            <Setter Property="FontFamily" Value="UbuntuLight"/>
+        </Style>
     </ContentPage.Resources>
 
     <Grid RowDefinitions="0.1*, 0.9*"
@@ -16,7 +25,17 @@
                            SearchCommand="{Binding UpdateWeatherCommand}"
                            SearchCommandParameter="{Binding Source={RelativeSource Self}, Path=Text}"
                        SearchButtonPressed="InitialSearch"
-                       x:Name="searchBar"/>
+                       x:Name="searchBar"
+                       TextColor="{Binding TextColor}">
+                <SearchBar.Triggers>
+                    <DataTrigger TargetType="SearchBar" Binding="{Binding PrimaryColor}" Value="#baf4ff">
+                        <Setter Property="PlaceholderColor" Value="DarkGray"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="SearchBar" Binding="{Binding PrimaryColor}" Value="#2a2f42">
+                        <Setter Property="PlaceholderColor" Value="LightGray"/>
+                    </DataTrigger>
+                </SearchBar.Triggers>
+            </SearchBar>
         </Frame>
         <ImageButton Source="location.png"
                      Grid.Column="1"
@@ -24,11 +43,13 @@
                      Command="{Binding UpdateWeatherCommand}"
                      CommandParameter="auto:ip"
                      Clicked="InitialSearch"
-                     x:Name="locationButton"/>
+                     x:Name="locationButton"
+                     BackgroundColor="Transparent"/>
         <ImageButton Source="settings.png"
                      Grid.Column="2"
                      Margin="5"
-                     Clicked="OpenSettings"/>
+                     Clicked="OpenSettings"
+                     BackgroundColor="Transparent"/>
         <ScrollView IsVisible="{Binding DoneLoading}"
                     Grid.Row="1"
                     Grid.ColumnSpan="3">
@@ -43,9 +64,9 @@
                        HeightRequest="200"
                        IsAnimationPlaying="False"/>
                     <Label Text="{Binding CurrentDisplayedTemp}"
-                       FontSize="50"
+                       FontSize="40"
                        HorizontalTextAlignment="Center"
-                       x:Name="currentTempLabel"/>
+                       x:Name="currentTempLabel" Margin="0,10"/>
                 </VerticalStackLayout>
                 <CollectionView ItemsSource="{Binding Hourly}"
                                 x:Name="hourlyCollection">
@@ -55,7 +76,8 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Frame MaximumHeightRequest="120">
+                            <Frame MaximumHeightRequest="120"
+                                   MinimumWidthRequest="90">
                                 <VerticalStackLayout VerticalOptions="Center"
                                                      Spacing="3">
                                     <Label Text="{Binding Hour, Converter={StaticResource TimeFormatConverter}}"
@@ -78,10 +100,9 @@
                         <Grid RowDefinitions="0.5*, 0.5*"
                               ColumnDefinitions="0.3*, 0.7*"
                               ColumnSpacing="5">
-                            <Image Source="wind.gif"
+                            <Image Source="wind.png"
                                    HeightRequest="30"
                                    WidthRequest="30"
-                                   IsAnimationPlaying="False"
                                    Grid.RowSpan="2"/>
                             <Label Grid.Column="1"
                                    Text="Wind"/>
@@ -97,7 +118,6 @@
                             <Image Source="drop.png"
                                    HeightRequest="30"
                                    WidthRequest="30"
-                                   IsAnimationPlaying="False"
                                    Grid.RowSpan="2"/>
                             <Label Grid.Column="1"
                                    Text="Precipitation"/>

@@ -49,15 +49,25 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\clouds.gif" />
+	  <None Remove="Resources\Images\clouds.png" />
 	  <None Remove="Resources\Images\cloudy.gif" />
+	  <None Remove="Resources\Images\cloudy.png" />
+	  <None Remove="Resources\Images\cloudy_night.png" />
 	  <None Remove="Resources\Images\drizzle.gif" />
+	  <None Remove="Resources\Images\drizzle.png" />
 	  <None Remove="Resources\Images\drop.png" />
 	  <None Remove="Resources\Images\foggy.gif" />
+	  <None Remove="Resources\Images\foggy.png" />
 	  <None Remove="Resources\Images\rain.gif" />
+	  <None Remove="Resources\Images\rain.png" />
 	  <None Remove="Resources\Images\snow.gif" />
+	  <None Remove="Resources\Images\snow.png" />
 	  <None Remove="Resources\Images\storm.gif" />
+	  <None Remove="Resources\Images\storm.png" />
 	  <None Remove="Resources\Images\sun.gif" />
+	  <None Remove="Resources\Images\sun.png" />
 	  <None Remove="Resources\Images\wind.gif" />
+	  <None Remove="Resources\Images\wind.png" />
 	</ItemGroup>
 
 	<ItemGroup>

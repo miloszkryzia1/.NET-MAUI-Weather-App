@@ -11,7 +11,7 @@
         }
 
         //First search
-        private void SearchBar_SearchButtonPressed(object sender, EventArgs e)
+        private void InitialSearch(object sender, EventArgs e)
         {
             welcomeScreen.IsVisible = false;
             var vm = BindingContext as MainViewModel;
@@ -26,10 +26,11 @@
             setter.Value = true;
             trigger.Setters.Add(setter);
             indicator.Triggers.Add(trigger);
-            ((SearchBar)sender).SearchButtonPressed -= SearchBar_SearchButtonPressed;
+            locationButton.Clicked -= InitialSearch;
+            searchBar.SearchButtonPressed -= InitialSearch;
         }
 
-        private void ImageButton_Clicked(object sender, EventArgs e)
+        private void OpenSettings(object sender, EventArgs e)
         {
             Navigation.PushAsync(settings);
         }

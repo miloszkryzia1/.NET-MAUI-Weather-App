@@ -62,7 +62,7 @@ namespace WeatherApp
             CurrentCity = weekData.location.name;
             CurrentTempC = weekData.current.temp_c;
             CurrentTempF = weekData.current.temp_f;
-            CurrentImage = IconSelector.SelectImage(weekData.current.condition.code);
+            CurrentImage = IconSelector.SelectImage(weekData.current.condition.code, weekData.current.is_day);
             CurrentWindKph = weekData.current.wind_kph;
             CurrentWindMph = weekData.current.wind_mph;
             CurrentPrecipitationMm = weekData.current.precip_mm;
@@ -99,7 +99,7 @@ namespace WeatherApp
                     i = 0;
                     currentArray = hourlyTomorrow;
                 }
-                Hourly.Add(new HourlyData(currentArray[i].temp_c, currentArray[i].temp_f, i, currentArray[i].condition.code, Units));
+                Hourly.Add(new HourlyData(currentArray[i].temp_c, currentArray[i].temp_f, i, currentArray[i].condition.code, Units, currentArray[i].is_day));
                 i++;
             }
 

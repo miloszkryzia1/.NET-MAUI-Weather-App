@@ -8,20 +8,34 @@ namespace WeatherApp.Tools
 {
     public class IconSelector
     {
-        public static string SelectImage(int conditionCode)
+        public static string SelectImage(int conditionCode, int day)
         {
             switch (conditionCode)
             {
                 case 1000:
-                    return "sun.gif";
+                    if (day == 1)
+                    {
+                        return "sun.png";
+                    }
+                    else
+                    {
+                        return "cloudy_night.png";
+                    }
                 case 1003:
-                    return "cloudy.gif";
+                    if (day == 1)
+                    {
+                        return "cloudy.png";
+                    }
+                    else
+                    {
+                        return "cloudy_night.png";
+                    }
                 case 1006:
                 case 1009:
-                    return "clouds.gif";
+                    return "clouds.png";
                 case 1030:
                 case 1135:
-                    return "foggy.gif";
+                    return "foggy.png";
                 case 1063:
                 case 1072:
                 case 1150:
@@ -32,7 +46,7 @@ namespace WeatherApp.Tools
                 case 1183:
                 case 1186:
                 case 1198:
-                    return "drizzle.gif";
+                    return "drizzle.png";
                 case 1189:
                 case 1192:
                 case 1195:
@@ -40,15 +54,15 @@ namespace WeatherApp.Tools
                 case 1240:
                 case 1243:
                 case 1246:
-                    return "rain.gif";
+                    return "rain.png";
                 case 1087:
                 case 1273:
                 case 1276:
                 case 1279:
                 case 1282:
-                    return "storm.gif";
+                    return "storm.png";
                 default:
-                    return "snow.gif";
+                    return "snow.png";
             }
         }
     }

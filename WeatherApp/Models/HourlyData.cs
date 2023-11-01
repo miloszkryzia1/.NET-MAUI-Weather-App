@@ -17,7 +17,7 @@ namespace WeatherApp.Models
         public string ImageSource { get; set; }
         public int Hour {  get; set; }
 
-        public HourlyData(float tempC, float tempF, int hour, int conditionCode, string units) 
+        public HourlyData(float tempC, float tempF, int hour, int conditionCode, string units, int day) 
         {
             TemperatureC = tempC;
             TemperatureF = tempF;
@@ -30,7 +30,7 @@ namespace WeatherApp.Models
                 DisplayedTemperature = string.Format("{0:F0}°F", TemperatureF);
             }
             Hour = hour;
-            ImageSource = IconSelector.SelectImage(conditionCode);
+            ImageSource = IconSelector.SelectImage(conditionCode, day);
         }
     }
 }

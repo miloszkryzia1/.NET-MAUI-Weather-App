@@ -36,7 +36,7 @@ namespace WeatherApp.Models
                 DisplayedMaxTemp = string.Format("{0:F0}°F", maxTempF);
             }
             Date = DateTime.ParseExact(date, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture).ToString("ddd d");
-            ImageSource = IconSelector.SelectImage(conditionCode);
+            ImageSource = IconSelector.SelectImage(conditionCode, 1);
         }
     }
 }

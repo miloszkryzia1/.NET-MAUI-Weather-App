@@ -5,6 +5,7 @@
              xmlns:Tools="clr-namespace:WeatherApp.Tools"
              Title="Weather"
              BackgroundColor="{Binding PrimaryColor}">
+    
     <ContentPage.Resources>
         <Tools:TimeFormatConverter x:Key="TimeFormatConverter"/>
         <Style TargetType="Frame">
@@ -37,19 +38,45 @@
                 </SearchBar.Triggers>
             </SearchBar>
         </Frame>
-        <ImageButton Source="location.png"
+        <ImageButton Source="location_white.png"
                      Grid.Column="1"
                      Margin="5"
                      Command="{Binding UpdateWeatherCommand}"
                      CommandParameter="auto:ip"
                      Clicked="InitialSearch"
                      x:Name="locationButton"
-                     BackgroundColor="Transparent"/>
+                     BackgroundColor="Transparent">
+            <ImageButton.Triggers>
+                <DataTrigger Binding="{Binding PrimaryColor}"
+                             TargetType="ImageButton"
+                             Value="#f5f5f5">
+                    <Setter Property="Source" Value="location.png"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding PrimaryColor}"
+                             TargetType="ImageButton"
+                             Value="#2a2f42">
+                    <Setter Property="Source" Value="location_white.png"/>
+                </DataTrigger>
+            </ImageButton.Triggers>
+        </ImageButton>
         <ImageButton Source="settings.png"
                      Grid.Column="2"
                      Margin="5"
                      Clicked="OpenSettings"
-                     BackgroundColor="Transparent"/>
+                     BackgroundColor="Transparent">
+            <ImageButton.Triggers>
+                <DataTrigger Binding="{Binding PrimaryColor}"
+                             TargetType="ImageButton"
+                             Value="#f5f5f5">
+                    <Setter Property="Source" Value="settings.png"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding PrimaryColor}"
+                             TargetType="ImageButton"
+                             Value="#2a2f42">
+                    <Setter Property="Source" Value="settings_white.png"/>
+                </DataTrigger>
+            </ImageButton.Triggers>
+        </ImageButton>
         <ScrollView IsVisible="{Binding DoneLoading}"
                     Grid.Row="1"
                     Grid.ColumnSpan="3">

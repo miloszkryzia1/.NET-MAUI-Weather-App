@@ -11,8 +11,9 @@ public partial class SettingsPage : ContentPage
 	public SettingsPage(MainViewModel vm)
 	{
         mainVm = vm;
-		InitializeComponent();
-	}
+        InitializeComponent();
+        BindingContext = mainVm;
+    }
     private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
         if (e.Value)

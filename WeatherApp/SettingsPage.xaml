@@ -3,7 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WeatherApp.SettingsPage"
              Title="Settings"
-             xmlns:local="clr-namespace:WeatherApp">
+             xmlns:local="clr-namespace:WeatherApp"
+             BackgroundColor="{Binding PrimaryColor}">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="{Binding TextColor}"/>
+            <Setter Property="FontFamily" Value="UbuntuLight"/>
+        </Style>
+    </ContentPage.Resources>
 
     <VerticalStackLayout Margin="10"
                          Spacing="10">

@@ -125,7 +125,7 @@ namespace WeatherApp
                 }
 
                 //Next 6 days
-                for (int j = 1; j < 7; j++)
+                for (int j = 1; j < 3; j++)
                 {
                     var date = weekData.forecast.forecastday[j].date;
                     var day = weekData.forecast.forecastday[j].day;

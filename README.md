@@ -6,7 +6,7 @@ It also features support for both metric and imperial measurement units, which u
 
 This app uses Weather API (https://www.weatherapi.com) to access weather data.
 
-_This is a personal learning project._
+_This is a personal learning/portfolio project._
 
 ## Instructions
 - Open Visual Studio 2022
